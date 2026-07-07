@@ -16,6 +16,17 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('ninjas.index')" :active="request()->routeIs('ninjas.index')">
+                        {{ __('Ninjas') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ninjas.create')" :active="request()->routeIs('ninjas.create')">
+                        {{ __('Create Ninja') }}
+                    </x-nav-link>
+                </div>
+
+
             </div>
 
             <!-- Settings Dropdown -->

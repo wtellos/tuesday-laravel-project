@@ -3,12 +3,14 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+//  use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+//  Above is used in Laravel's seeders to prevent events from being fired
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
+    //use WithoutModelEvents;
 
     /**
      * Seed the application's database.
@@ -21,5 +23,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        // This is how we can call other seeders from this seeder
+        $this->call([
+          DojoSeeder::class,
+        ]);
+
+        $this->call([
+          NinjaSeeder::class,
+        ]);        
     }
 }
