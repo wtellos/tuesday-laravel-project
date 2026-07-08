@@ -29,4 +29,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Defdining the relationship with the Vote model
+    public function votes()
+        {
+            return $this->hasMany(Vote::class);
+        } 
+        
+public function ninjas()
+        {
+            return $this->hasMany(Ninja::class);
+        }        
 }

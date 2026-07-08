@@ -9,6 +9,25 @@
           <div>
             <h3>{{ $ninja->name }}</h3>
             <p>{{ $ninja->dojo->name }}</p>
+            
+            <!-- Vote buttons -->
+            <div class="flex items-center gap-4 mt-2">
+                <form action="{{ route('ninjas.vote', $ninja) }}" method="POST" class="inline">
+                    @csrf
+                    <input type="hidden" name="type" value="up">
+                    <button type="submit" class="text-green-600 hover:text-green-800">
+                        👍 {{ $ninja->upVotes()->count() }}
+                    </button>
+                </form>
+                
+                <form action="{{ route('ninjas.vote', $ninja) }}" method="POST" class="inline">
+                    @csrf
+                    <input type="hidden" name="type" value="down">
+                    <button type="submit" class="text-red-600 hover:text-red-800">
+                        👎 {{ $ninja->downVotes()->count() }}
+                    </button>
+                </form>
+            </div>
           </div>
         </x-card>
       </li>

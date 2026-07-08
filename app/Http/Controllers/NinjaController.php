@@ -3,11 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Vote;
 use App\Models\Ninja;
 use App\Models\Dojo;
 class NinjaController extends Controller
 
 {
+
+  // Define the vote method to handle voting for a ninja
+  public function vote(Request $request, Ninja $ninja) {
+      // Validate
+      $request->validate([
+          'type' => 'required|in:up,down'
+      ]);
+
+      // Find existing vote
+      $existingVote = Vote::where('user_id', auth()->id())
+                          ->where('ninja_id', $ninja->id)
+                          ->first();
+
+      if ($existingVote) {
+          if ($existingVote->type === $request->type) {
+              $existingVote->delete();
+          } else {
+              $existingVote->update(['type' => $request->type]);
+          }
+      } else {
+          Vote::create([
+              'user_id' => auth()->id(),
+              'ninja_id' => $ninja->id,
+              'type' => $request->type
+          ]);
+      }
+
+      // UPDATE CACHED COUNTS
+      $ninja->update([
+          'upvotes_count' => $ninja->upVotes()->count(),
+          'downvotes_count' => $ninja->downVotes()->count(),
+      ]);
+
+      return redirect()->back()->with('success', 'Vote recorded!');
+  }
+
+
+
+
+    // Define the index method to display a list of ninjas
     public function index() {
       // route --> /ninjas/
       $ninjas = Ninja::with('dojo')->orderBy('created_at', 'desc')->paginate(10);
@@ -15,6 +56,7 @@ class NinjaController extends Controller
       return view('ninjas.index', ['ninjas' => $ninjas]);
     }
 
+    // Define the show method to display a single ninja
     public function show(Ninja $ninja) {
       // route --> /ninjas/{id}
       $ninja->load('dojo');
@@ -22,6 +64,7 @@ class NinjaController extends Controller
       return view('ninjas.show', ['ninja' => $ninja]);
     }
 
+    // Define the create method to display the form for creating a new ninja
     public function create() {
       // route --> /ninjas/create
       $dojos = Dojo::all();
@@ -29,6 +72,7 @@ class NinjaController extends Controller
       return view('ninjas.create', ['dojos' => $dojos]);
     }
 
+    // Define the store method to handle the form submission for creating a new ninja
     public function store(Request $request) {
       // --> /ninjas/ (POST)
       $validated = $request->validate([
@@ -43,6 +87,8 @@ class NinjaController extends Controller
       return redirect()->route('ninjas.index')->with('success', 'Ninja created!');
     }
 
+    
+    // Define the destroy method to handle the deletion of a ninja
     public function destroy(Ninja $ninja) {
       // --> /ninjas/{id} (DELETE)
       $ninja->delete();
