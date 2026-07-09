@@ -32,8 +32,9 @@ class EnsureProfileComplete
 
         // If fields are missing, store them in session and redirect
         if (!empty($missingFields)) {
-            session()->put('missing_fields', $missingFields);
-            return redirect()->route('profile.complete');
+            session()->put('missing_fields', $missingFields); // Found in the ProfileCompleteController
+            return redirect()->route('profile.complete')
+                ->with('error', 'Please complete your profile before proceeding.');
         }
 
         return $next($request);

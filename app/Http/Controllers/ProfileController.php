@@ -16,8 +16,14 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        
+        // Get the country options from the User model
+        $fields = $request->user()->requiredProfileFields();
+        $countryOptions = $fields['country']['options'] ?? [];
+
         return view('profile.edit', [
             'user' => $request->user(),
+            'countryOptions' => $countryOptions,
         ]);
     }
 
@@ -26,6 +32,14 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+
+        // Validate the request (NEW)
+        $validated = $request->validated();
+        
+        // Add country to the validated data (NEW)
+        $validated['country'] = $request->input('country');
+
+        // Update the user    
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {

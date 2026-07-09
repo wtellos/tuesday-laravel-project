@@ -47,6 +47,28 @@
             @endif
         </div>
 
+        <!-- Country -->
+        {{-- <div class="mt-4">
+            <x-input-label for="country" :value="__('Country')" />
+            <x-text-input id="country" name="country" type="text" class="mt-1 block w-full" 
+                :value="old('country', $user->country)" />
+            <x-input-error class="mt-2" :messages="$errors->get('country')" />
+        </div>         --}}
+
+        <!-- Country -->
+        <div class="mt-4">
+            <x-input-label for="country" :value="__('Country')" />
+            <select id="country" name="country" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm">
+                <option value="">Select your country</option>
+                @foreach($countryOptions as $value => $label)
+                    <option value="{{ $value }}" {{ old('country', $user->country) == $value ? 'selected' : '' }}>
+                        {{ $label }}
+                    </option>
+                @endforeach
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('country')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

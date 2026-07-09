@@ -14,13 +14,17 @@ Route::get('/dashboard', function () {
 
 
 // https://laraveldaily.com/post/middleware-laravel-main-things-to-know
-Route::middleware('auth')->group(function () { // 'auth' group is users that are logged in
+Route::middleware('auth')->group(function () { // 'auth' User has to be logged in
 
     // User Profile routes 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
- 
+
+    // Profile Complete routes (Future options: 1.Apply ProfileComplete middleware to ALL auth routes 2.Apply to specific routes 3.Exclude routes)
+    Route::get('/profile/complete-profile', [\App\Http\Controllers\ProfileCompleteController::class, 'show'])->name('profile.complete');
+    Route::post('/profile/complete-profile', [\App\Http\Controllers\ProfileCompleteController::class, 'update'])->name('profile.complete-profile.update');
+
     // Ninja routes
     Route::get('/ninjas', [NinjaController::class, 'index'])->name('ninjas.index');
     Route::get('/ninjas/create', [NinjaController::class, 'create'])->name('ninjas.create');

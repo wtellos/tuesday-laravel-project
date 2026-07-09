@@ -26,6 +26,8 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            //'country' => ['required', 'string', 'max:255'], 
+            'country' => ['nullable', 'string', 'max:255'], //(user might want to remove it)
         ];
     }
 }
