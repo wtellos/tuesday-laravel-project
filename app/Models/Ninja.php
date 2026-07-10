@@ -15,12 +15,7 @@ class Ninja extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'skill', 'bio', 'dojo_id', 'upvotes_count', 'downvotes_count'];  
-
-    public function resolveRouteBinding($value, $field = null)
-    {
-        // Find the ninja where the slug matches
-        return $this->where('name', 'LIKE', str_replace('-', ' ', $value))->firstOrFail();
-    }
+    // Have to add 'upvotes_count' and 'downvotes_count' to the $fillable array to see in database.
 
     // Define Ninja relationship with the Dojo model
     public function dojo()

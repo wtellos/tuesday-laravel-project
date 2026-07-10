@@ -58,7 +58,7 @@
         <!-- Country -->
         <div class="mt-4">
             <x-input-label for="country" :value="__('Country')" />
-            <select id="country" name="country" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm">
+            <select id="country" name="country" required class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm">
                 <option value="">Select your country</option>
                 @foreach($countryOptions as $value => $label)
                     <option value="{{ $value }}" {{ old('country', $user->country) == $value ? 'selected' : '' }}>

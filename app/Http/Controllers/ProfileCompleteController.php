@@ -89,7 +89,7 @@ class ProfileCompleteController extends Controller
 
             if (!empty($stillMissing)) {
                 session()->put('missing_fields', $stillMissing);
-                return redirect()->route('profile.complete-profile')->with('error', 'Please fill in all required fields.');
+                return redirect()->route('profile.complete')->with('error', 'Please fill in all required fields.');
             }
 
             // Clear the session
