@@ -2,15 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Str;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Ninja extends Model
 {
     /** @use HasFactory<\Database\Factories\NinjaFactory> */
     use HasFactory;
 
-    protected $fillable = ['name', 'skill', 'bio', 'dojo_id', 'upvotes_count', 'downvotes_count'];
+    protected $fillable = ['name', 'skill', 'bio', 'dojo_id', 'upvotes_count', 'downvotes_count'];  
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        // Find the ninja where the slug matches
+        return $this->where('name', 'LIKE', str_replace('-', ' ', $value))->firstOrFail();
+    }
 
     // Define Ninja relationship with the Dojo model
     public function dojo()
@@ -23,12 +33,10 @@ class Ninja extends Model
     {
         return $this->hasMany(Vote::class);
     }
-
     public function upVotes()
     {
         return $this->hasMany(Vote::class)->where('type', 'up');
     }
-
     public function downVotes()
     {
         return $this->hasMany(Vote::class)->where('type', 'down');
