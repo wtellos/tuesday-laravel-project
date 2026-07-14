@@ -14,7 +14,7 @@ class Ninja extends Model
     /** @use HasFactory<\Database\Factories\NinjaFactory> */
     use HasFactory;
 
-    protected $fillable = ['name', 'skill', 'bio', 'dojo_id', 'upvotes_count', 'downvotes_count'];  
+    protected $fillable = ['name', 'skill', 'user_id', 'bio', 'dojo_id', 'upvotes_count', 'downvotes_count'];  
     // Have to add 'upvotes_count' and 'downvotes_count' to the $fillable array to see in database.
 
     // Define Ninja relationship with the Dojo model

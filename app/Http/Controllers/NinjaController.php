@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Vote;
 use App\Models\Ninja;
 use App\Models\Dojo;
+use App\Models\User;
+
 class NinjaController extends Controller
 
 {
@@ -82,6 +86,8 @@ class NinjaController extends Controller
         'dojo_id' => 'required|exists:dojos,id',
       ]);
 
+      $validated['user_id'] = Auth::id(); // Assign the authenticated user's ID to the new ninja]
+
       Ninja::create($validated);
 
       return redirect()->route('ninjas.index')->with('success', 'Ninja created!');
@@ -91,6 +97,8 @@ class NinjaController extends Controller
     // Define the destroy method to handle the deletion of a ninja
     public function destroy(Ninja $ninja) {
       // --> /ninjas/{id} (DELETE)
+      $this->authorize('delete', $ninja); // Ensure the user is authorized to delete this ninja
+
       $ninja->delete();
 
       return redirect()->route('ninjas.index')->with('success', 'Ninja deleted!');
