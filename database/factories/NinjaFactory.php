@@ -29,6 +29,7 @@ class NinjaFactory extends Factory
             //'user_id' => \App\Models\User::factory(), // This will create a new User for each Ninja
             //'user_id' => $user->id,
             'user_id' => \App\Models\User::factory()->afterCreating(function ($user) {
+                
                 // Attach the "member" role to the user
                 $memberRole = \App\Models\Role::where('name', 'member')->first();
                 if ($memberRole) {
