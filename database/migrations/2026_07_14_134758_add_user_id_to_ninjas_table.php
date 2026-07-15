@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('ninjas', function (Blueprint $table) {
             // Add the 'user_id' (foreign key) column to the 'ninjas' table
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
         });
     }
 

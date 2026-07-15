@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use App\Models\Vote;
 use App\Models\Ninja;
@@ -13,6 +14,9 @@ use App\Models\User;
 class NinjaController extends Controller
 
 {
+  use AuthorizesRequests;
+
+
 
   // Define the vote method to handle voting for a ninja
   public function vote(Request $request, Ninja $ninja) {
@@ -48,9 +52,6 @@ class NinjaController extends Controller
 
       return redirect()->back()->with('success', 'Vote recorded!');
   }
-
-
-
 
     // Define the index method to display a list of ninjas
     public function index() {
