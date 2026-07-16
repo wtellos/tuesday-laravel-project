@@ -40,13 +40,8 @@ class NinjaPolicy
      */
     public function update(User $user, Ninja $ninja): bool
     {
-        // My policy - Update only if the user is the owner of the Ninja model
-            // 2. Object: $user
-            // 3. Method: hasRole()
-            // 4. Argument: 'editor'
-            // 5. Logical OR: || is owner of the Ninja post
-        return $user->hasRole('editor') || $user->id === $ninja->user_id;
-        //return false;
+        // Not used at the moment //return $user->hasRole('editor') || $ninja->isOwner($user);
+        return false;
     }
 
     /**
@@ -55,7 +50,7 @@ class NinjaPolicy
     public function delete(User $user, Ninja $ninja): bool
     {
         // My policy - Delete only if the user is the owner of the Ninja model
-        return $user->hasRole('editor') || $user->id === $ninja->user_id;
+        return $user->hasRole('editor') || $ninja->isOwner($user);
         //return false;
     }
 

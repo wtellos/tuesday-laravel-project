@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
@@ -17,11 +16,27 @@ class Ninja extends Model
     protected $fillable = ['name', 'skill', 'user_id', 'bio', 'dojo_id', 'upvotes_count', 'downvotes_count'];  
     // Have to add 'upvotes_count' and 'downvotes_count' to the $fillable array to see in database.
 
+
+
+    // Define Ninja relationship with the user
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // HELPER method
+    public function isOwner(User $user): bool
+    {
+        return $this->user_id === $user->id;
+    }    
+
+
     // Define Ninja relationship with the Dojo model
     public function dojo()
     {
         return $this->belongsTo(Dojo::class);
     }    
+
 
     // Define Ninja relationship with the Vote model
     public function votes()
@@ -35,5 +50,6 @@ class Ninja extends Model
     public function downVotes()
     {
         return $this->hasMany(Vote::class)->where('type', 'down');
-    }    
+    }   
+
 }
