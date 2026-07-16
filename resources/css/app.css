@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+    .ninjaCard {
+      font-size: large;
+      background: #adb4c1;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+@layer utilities {
+  .oae {
+    color: oklch(67.3% .182 276.935);
+  }
+}
+@layer utilities {
+  .oad {
+    --tw-font-weight: 600;
+    font-weight: 600;
+  }
+}
+@layer utilities {
+  .oab {
+    font-size: .875rem;
+    line-height: var(--tw-leading,calc(1.25 / .875));
+  }
+}
+@layer utilities {
+  .nzz {
+    padding-block: .625rem;
+  }
+}
+@layer utilities {
+  .nzu {
+    padding-inline: .875rem;
+  }
+}
+@layer utilities {
+  .nzp {
+    background-color: oklab(58.5% .0288678 -.231205/.2);
+  }
+}

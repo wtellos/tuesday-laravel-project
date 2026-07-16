@@ -29,18 +29,14 @@ Route::middleware('auth')->group(function () { // 'auth' User has to be logged i
     // Ninja routes
     Route::get('/ninjas', [NinjaController::class, 'index'])->name('ninjas.index');
     Route::get('/ninjas/create', [NinjaController::class, 'create'])->name('ninjas.create');
-    
-    // Because route parameter is named {ninja} and your controller method variable is named $ninja, Laravel knows they belong together.
-
-    // Laravel defaults to the primary key (id) of the model as the route parameter.
-
-    Route::get('/ninjas/{ninja}', [NinjaController::class, 'show'])->name('ninjas.show');
-    
-    // Change slug to name - NEW
-    //Route::get('/ninjas/{ninja:name}', [NinjaController::class, 'show'])->name('ninjas.show');
-
     Route::post('/ninjas', [NinjaController::class, 'store'])->name('ninjas.store');
     Route::delete('/ninjas/{ninja}', [NinjaController::class, 'destroy'])->name('ninjas.destroy');
+    
+    // Laravel defaults to the primary key (id) of the model as the route parameter.
+    Route::get('/ninjas/{ninja}', [NinjaController::class, 'show'])->name('ninjas.show');
+    // Change slug to name - OLD
+    //Route::get('/ninjas/{ninja:name}', [NinjaController::class, 'show'])->name('ninjas.show');
+
 
     // Vote route
     Route::post('/ninjas/{ninja}/vote', [NinjaController::class, 'vote'])->name('ninjas.vote');

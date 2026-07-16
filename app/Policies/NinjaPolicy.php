@@ -23,16 +23,16 @@ class NinjaPolicy
     // Default policy 2
     public function view(User $user, Ninja $ninja): bool
     {
-        return false;
+        return $user->hasRole('editor') || $user->hasRole('member');
     }
 
     /**
      * Determine whether the user can create models.
      */
     // Default policy 3
-    public function create(User $user): bool
+    public function createNinja(User $user): bool
     {
-        return false;
+        return $user->hasRole('editor') || $user->hasRole('member');
     }
 
     /**

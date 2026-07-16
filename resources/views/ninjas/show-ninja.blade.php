@@ -1,6 +1,6 @@
 <x-app-layout>
   <div class="max-w-7xl mx-auto px-4 py-8 mt-4">
-  <h2>{{ $ninja->name }}'s Profile</h2>
+  <h2 class="text-violet-600 text-3xl font-bold mb-2" style="">{{ $ninja->name }}'s Profile</h2>
 
   {{-- ninja info --}}
   <div class="bg-gray-200 p-4 rounded">
@@ -19,11 +19,14 @@
   </div>
 
   {{-- delete button --}}
+  @can('delete', $ninja)    
   <form action="{{ route('ninjas.destroy', $ninja->id) }}" method="POST">
     @csrf
     @method('DELETE')
 
     <button type="submit" class="btn my-4 mt-4 inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">Delete Ninja</button>
   </form>
+  @endcan
+  
 </div>
 </x-app-layout>
