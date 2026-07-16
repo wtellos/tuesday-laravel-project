@@ -1,6 +1,7 @@
 <x-app-layout>
 <div class="max-w-7xl mx-auto px-4 py-8 mt-4">
   <h1 class="text-blue-600 dark:text-sky-400 text-3xl mb-6 ">Currently Available Ninjas 🥷🥷🏼🥷🏽</h1>
+  <h4 class="text-blue-600 dark:text-sky-400 text-2xl mb-6 ">{{ $ninjasTotalCount  }} Ninjas to read below:</h4>
 
   <ul>
     @foreach($ninjas as $ninja)

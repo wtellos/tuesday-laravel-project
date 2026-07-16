@@ -56,24 +56,24 @@ class NinjaController extends Controller
 
     // Define the index method to display a list of ninjas
     public function index() {
-      // route --> /ninjas/
       $ninjas = Ninja::with('dojo')->orderBy('created_at', 'desc')->paginate(10);
+      $ninjasTotalCount = Ninja::count();
 
-      return view('ninjas.index', ['ninjas' => $ninjas]);
+      return view('ninjas.index', ['ninjas' => $ninjas, 'ninjasTotalCount' => $ninjasTotalCount]);
     }
+
 
     // Define the show method to display a single ninja in a view
     public function show(Ninja $ninja) {
-      // route --> /ninjas/{id}
       $ninja->load('dojo');
 
       return view('ninjas.show-ninja', ['ninja' => $ninja]);
     }
 
+
     // Display the form for creating a new ninja
-      // It bother me for using "create" for this view because there's a "create" in Policy
+    // It bothers me for using "create" for this view because there's a "create" in Policy
     public function create() {
-      // route --> /ninjas/create
       $dojos = Dojo::all();
 
       return view('ninjas.create-ninja', ['dojos' => $dojos]);
