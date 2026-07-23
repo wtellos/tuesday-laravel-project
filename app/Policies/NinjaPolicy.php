@@ -44,9 +44,7 @@ class NinjaPolicy
         return false;
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
+
     public function delete(User $user, Ninja $ninja): bool
     {
         // My policy - Delete only if the user is the owner of the Ninja model
