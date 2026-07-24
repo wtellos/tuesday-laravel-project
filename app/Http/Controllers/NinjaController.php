@@ -76,9 +76,10 @@ class NinjaController extends Controller
     public function create() {
       $dojos = Dojo::all();
 
-      return view('ninjas.create-ninja', ['dojos' => $dojos]);
-    }
-
+     return view('ninjas.create-ninja', ['dojos' => $dojos]);
+    
+     }
+    
     // Define the store method for creating a new ninja
     public function store(Request $request) {
 
@@ -94,6 +95,10 @@ class NinjaController extends Controller
       $validated['user_id'] = Auth::id(); // Assign the authenticated user's ID to the new ninja]
 
       Ninja::create($validated);
+
+    //  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //   dump($_POST);
+    //  }      
 
       return redirect()->route('ninjas.index')->with('success', 'Ninja created!');
     }
